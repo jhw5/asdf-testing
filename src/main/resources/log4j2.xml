@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <RollingFile name="RollingFile" fileName="logs/nphrase.log"
+                 filePattern="logs/nphrase-%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+	  <Policies>
+		<TimeBasedTriggeringPolicy />
+	  </Policies>
+      <DefaultRolloverStrategy max="7"/>
+    </RollingFile>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="[%t] %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="RollingFile"/>
+    </Root>
+    <Logger name="com.oconnors.suggest.nphrases.parse.ParseDriver" level="info">
+      <AppenderRef ref="Console"/>
+    </Logger>
+  </Loggers>
+</Configuration>

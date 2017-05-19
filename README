@@ -1,0 +1,37 @@
+Build:
+  Windows: Run 'deploy-nphrases-ftp.bat'.
+  
+Run:
+
+  Run from Import Content:
+    Check the 'nphrases' box in the Associated Content bar.
+  
+  Run from ML: 
+    Run np:create-nphrases($product-edition, $filename) in nphrase-management.xqm
+      -get the product edition using products.xqm
+      
+  The two above methods use the configuration settings in nphrase-config.xml.
+      
+  Run from browser:
+  
+    NOTE: now requires a valid authorization token. To use, manually insert a token first.
+    http://192.168.0.87:8080/nphrases/servlet?filename=[filename]&product=[PRODUCT]&edition=[EDITION]&xcc-url=[ML-ADDRESS:]9003&xcc-credentials=[USERNAME:PASSWORD]&token=[TOKEN]
+    This is the URL for running on JavaVM. If running on a local servlet, make sure the port number is correct.
+    The correct port is the one used by Tomcat's HTTP connector, found in $CATALINA_HOME/conf/server.xml.
+      Query string arguments: 
+      -filename: filename of document to be processed
+      -product: product document belongs to
+      -edition: edition (year) of product
+      -xcc-url: URL used by Java webapp (via XCC) to connect to ML. 
+          format: ADDRESS:PORT
+          To have XCC connect back to your local machine, you may include only the port number in this
+          parameter, and the servlet will give the address that sent the HTTP request to XCC,
+            as in http://192.168.0.87:8080/nphrases/servlet?uri=[URI]&product=[PRODUCT]&xcc-url=9003
+      -xcc-credentials: Username and password for an ML public user, used by XCC to access the ML server
+      -token: valid authorization token
+     
+      
+      
+JavaVM:
+  The NPhraseServlet on JavaVM should be running at all times. If it is not running, start it by running C:\Program Files\apache-tomcat-8.0.9\bin\startup.bat and check the status of the scheduled task 'Start Tomcat'.
+  
